@@ -1,8 +1,11 @@
+import type { ITask } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
+interface IInitialState {
+  task: ITask[];
+}
 
-
-const initialState = {
+const initialState: IInitialState = {
   task: [
     {
       id: "guihuykjhk",
