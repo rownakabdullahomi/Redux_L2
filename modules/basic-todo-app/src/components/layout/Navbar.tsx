@@ -1,9 +1,9 @@
 import { Link } from "react-router";
-import { ModeToggle } from "./ModeToggler";
+import { ModeToggle } from "../themes/ModeToggler";
 
 const Navbar = () => {
   return (
-    <nav className="w-11/12 mx-auto h-16 flex items-center justify-between gap-3 px-5">
+    <nav className="max-w-7xl mx-auto h-16 flex items-center justify-between gap-3 px-5">
       <div className="flex items-center">
         <img
           src="https://img.icons8.com/?size=160&id=ACLAf31fuu2O&format=png"
