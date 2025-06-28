@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   //   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -17,6 +18,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 
 export function AddTaskModal() {
@@ -33,6 +35,9 @@ export function AddTaskModal() {
           <Button>Add Task</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
+          <DialogDescription className="sr-only">
+            Fill up the form
+          </DialogDescription>
           <DialogHeader>
             <DialogTitle>Add Task</DialogTitle>
             {/* <DialogDescription>
@@ -47,10 +52,23 @@ export function AddTaskModal() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel />
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
                       {/* Your form field */}
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      {/* Your form field */}
+                      <Textarea {...field} value={field.value || ""} />
                     </FormControl>
                   </FormItem>
                 )}
