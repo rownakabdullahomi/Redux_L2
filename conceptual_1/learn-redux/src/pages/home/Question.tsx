@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import QuizControls from "./QuizControls";
+import { setAnswer } from "@/redux/features/quizSlice";
 
 const Question = () => {
-
-    
+  const dispatch = useAppDispatch();
 
   const { questions, currentQuestionIndex, userAnswer } = useAppSelector(
     (state) => state.quizReducer
@@ -14,8 +14,13 @@ const Question = () => {
   const currentAnswer = userAnswer[currentQuestionIndex];
 
   const handleAnswer = (ans: string) => {
-    console.log(ans);
-  }
+    dispatch(
+      setAnswer({
+        questionIndex: currentQuestionIndex,
+        answer: ans,
+      })
+    );
+  };
   return (
     <div className="flex justify-center">
       <Card className="w-[450px]">
@@ -26,7 +31,12 @@ const Question = () => {
         <CardContent>
           <div>
             {currentQuestion.options.map((option, index) => (
-              <Button onClick={()=>handleAnswer(option)} className="w-full mt-3" key={index}>
+              <Button
+                variant={option === currentAnswer ? "default" : "outline"}
+                onClick={() => handleAnswer(option)}
+                className="w-full mt-3"
+                key={index}
+              >
                 {option}
               </Button>
             ))}
