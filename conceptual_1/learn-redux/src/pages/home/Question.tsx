@@ -13,7 +13,7 @@ const Question = () => {
   const currentQuestion = questions[currentQuestionIndex];
   const currentAnswer = userAnswer[currentQuestionIndex];
 
-  const handleAnswer = (ans: string) => {
+  const handleAnswerChange = (ans: string) => {
     dispatch(
       setAnswer({
         questionIndex: currentQuestionIndex,
@@ -33,7 +33,7 @@ const Question = () => {
             {currentQuestion.options.map((option, index) => (
               <Button
                 variant={option === currentAnswer ? "default" : "outline"}
-                onClick={() => handleAnswer(option)}
+                onClick={() => handleAnswerChange(option)}
                 className="w-full mt-3"
                 key={index}
               >
