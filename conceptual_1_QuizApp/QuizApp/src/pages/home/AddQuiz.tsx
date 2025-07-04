@@ -10,7 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAddQuizMutation } from "@/redux/api/quizApi";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type QuizData = {
   title: string;
@@ -23,6 +25,7 @@ type QuizData = {
 };
 
 export default function AddQuiz() {
+  const [addQuiz, { isLoading, isError, isSuccess }] = useAddQuizMutation();
   const [step, setStep] = useState(1);
   const [addQuestionStep, setAddQuestionStep] = useState(1);
   const [quizData, setQuizData] = useState<QuizData>({
@@ -80,8 +83,10 @@ export default function AddQuiz() {
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
-  const handleSubmit = () => {
-    console.log(quizData);
+  const handleSubmit = async () => {
+    const res = await addQuiz(quizData);
+    console.log(res);
+    toast("Quiz added successfully");
   };
 
   return (
