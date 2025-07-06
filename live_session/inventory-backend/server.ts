@@ -189,3 +189,5 @@ mongoose
   app.get("/", (req, res)=>{
     res.send({success: true, message: "⚡ Welcome to Inventory server.."});
 })
+
+// 
