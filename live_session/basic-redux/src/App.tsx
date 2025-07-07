@@ -1,10 +1,12 @@
-import "./App.css";
-import Count from "./count/Count";
+// import Count from "./count/Count";
+
+import ItemPage from "./pages/home/items/ItemPage";
 
 function App() {
   return (
     <>
-      <Count />
+      {/* <Count /> */}
+      <ItemPage />
     </>
   );
 }
