@@ -1,17 +1,32 @@
 import { useGetItemsQuery } from "@/redux/api/itemCreateApi";
 import { DataTable } from "./DataTable";
-import { Columns } from "./Columns";
+import { getColumns, type Item } from "./Columns";
+import { useState } from "react";
+import UpdateItem from "../itemUpdate/UpdateItem";
 
 const ItemPage = () => {
+  const [editingItem, setEditingItem] = useState<Item | null>(null);
   const { data, isLoading } = useGetItemsQuery(undefined);
+
+
+    const handleCloseModal = () => setEditingItem(null);
+
+
+
+
   if (isLoading) return <p>Loading....</p>;
 
-  console.log(data);
 
   return (
     <div>
-        <p className="text-3xl font-semibold text-center mb-10">Item Page</p>
-      <DataTable columns={Columns} data={data} />
+      <p className="text-3xl font-semibold text-center mb-10">Item Page</p>
+      <DataTable columns={getColumns(setEditingItem)} data={data || []} />
+      {editingItem && (
+        <UpdateItem
+          item={editingItem}
+          onClose = {handleCloseModal}
+        />
+      )}
     </div>
   );
 };

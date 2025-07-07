@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { type ColumnDef } from "@tanstack/react-table";
+import { Pencil } from "lucide-react";
 
 export interface Item {
   _id: string;
@@ -13,7 +15,7 @@ export interface Item {
   updatedAt: string;
 }
 
-export const Columns: ColumnDef<Item>[] = [
+export const getColumns = (setEditingItem: (item: Item) => void): ColumnDef<Item>[] => [
   {
     accessorKey: "name",
     header: "Name",
@@ -74,14 +76,17 @@ export const Columns: ColumnDef<Item>[] = [
     },
   },
   // Optional: Action column (Edit/Delete)
-  // {
-  //   id: "actions",
-  //   header: "Actions",
-  //   cell: ({ row }) => (
-  //     <div className="flex gap-2">
-  //       <button onClick={() => handleEdit(row.original)}>Edit</button>
-  //       <button onClick={() => handleDelete(row.original._id)}>Delete</button>
-  //     </div>
-  //   ),
-  // },
+  {
+    id: "actions",
+    header: "Actions",
+    cell: ({ row }) => (
+      <Button
+        size={"icon"}
+        variant={"ghost"}
+        onClick={() => setEditingItem(row.original)}
+      >
+        <Pencil className="w-4 h-4 text-blue-500" />
+      </Button>
+    ),
+  },
 ];

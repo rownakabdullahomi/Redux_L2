@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useAddItemMutation } from "@/redux/api/itemCreateApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -29,6 +30,9 @@ const formSchema = z.object({
 });
 
 export default function AddForm() {
+
+    const [addItem, {isLoading}] = useAddItemMutation();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,8 +46,12 @@ export default function AddForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    // console.log(values);
+
+    const res = await addItem(values);
+    console.log(res);
+
   }
 
   return (
@@ -169,7 +177,7 @@ export default function AddForm() {
             )}
           />
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={isLoading}>Submit</Button>
         </form>
       </Form>
     </div>
