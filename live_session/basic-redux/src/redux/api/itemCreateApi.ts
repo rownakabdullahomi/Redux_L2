@@ -19,13 +19,15 @@ export const itemsApi = createApi({
     }),
 
     updateItem: builder.mutation({
-        query: ({id, body}) => ({
-            url:`/items/${id}`,
-            method: "PUT",
-            body
-        })
-    })
+      query: ({ id, body }) => ({
+        url: `/items/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["items"],
+    }),
   }),
 });
 
-export const { useGetItemsQuery, useAddItemMutation } = itemsApi;
+export const { useGetItemsQuery, useAddItemMutation, useUpdateItemMutation } =
+  itemsApi;

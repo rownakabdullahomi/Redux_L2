@@ -1,4 +1,4 @@
-"use client";
+
 
 import {
   AlertDialog,
@@ -30,6 +30,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {  useState } from "react";
 import type { Item } from "../items/Columns";
+import { useUpdateItemMutation } from "@/redux/api/itemCreateApi";
 
 // Zod schema
 const formSchema = z.object({
@@ -52,6 +53,7 @@ type UpdateItemProps = {
 };
 
 export default function UpdateItem({ item, onClose }: UpdateItemProps) {
+    const [updateItem, {isLoading}] = useUpdateItemMutation()
   const [open, setOpen] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -67,8 +69,13 @@ export default function UpdateItem({ item, onClose }: UpdateItemProps) {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log("Updated Item:", { ...values, _id: item._id });
+
+    const res = await updateItem({id: item._id, body: values})
+
+    console.log(res);
+
     setOpen(false);
     onClose();
   };
