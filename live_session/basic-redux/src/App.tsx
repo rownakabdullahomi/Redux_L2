@@ -6,7 +6,9 @@ function App() {
   return (
     <>
       {/* <Count /> */}
-      <ItemPage />
+      <div className="w-[80%] mx-auto mt-10">
+        <ItemPage />
+      </div>
     </>
   );
 }
